@@ -11,11 +11,11 @@ use ValueParsers\ParserOptions;
  * @group DataValue
  * @group DataValueExtensions
  *
- * @license GPL-2.0+
+ * @license GPL-2.0-or-later
  * @author Addshore
  * @author Thiemo Kreuz
  */
-class CalendarModelParserTest extends ValueParserTestBase {
+class CalendarModelParserTest extends ValueParserTestCase {
 
 	/**
 	 * @see ValueParserTestBase::getInstance

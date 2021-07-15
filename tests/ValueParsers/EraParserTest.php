@@ -12,11 +12,11 @@ use ValueParsers\EraParser;
  * @group TimeParsers
  * @group ValueParsers
  *
- * @license GPL-2.0+
+ * @license GPL-2.0-or-later
  * @author Addshore
  * @author Thiemo Kreuz
  */
-class EraParserTest extends StringValueParserTest {
+class EraParserTest extends ValueParserTestCase {
 
 	/**
 	 * @see ValueParserTestBase::getInstance
@@ -93,5 +93,4 @@ class EraParserTest extends StringValueParserTest {
 			array( '+100 Common Era' ),
 		);
 	}
-
 }

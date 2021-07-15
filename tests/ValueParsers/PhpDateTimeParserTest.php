@@ -17,11 +17,11 @@ use ValueParsers\ValueParser;
  * @group TimeParsers
  * @group ValueParsers
  *
- * @license GPL-2.0+
+ * @license GPL-2.0-or-later
  * @author Addshore
  * @author Thiemo Kreuz
  */
-class PhpDateTimeParserTest extends StringValueParserTest {
+class PhpDateTimeParserTest extends ValueParserTestCase {
 
 	/**
 	 * @see ValueParserTestBase::getInstance
@@ -42,13 +42,13 @@ class PhpDateTimeParserTest extends StringValueParserTest {
 	 * @return ValueParser
 	 */
 	private function getEraParser() {
-		$mock = $this->getMock( ValueParser::class );
+		$mock = $this->createMock( ValueParser::class );
 
 		$mock->expects( $this->any() )
 			->method( 'parse' )
 			->with( $this->isType( 'string' ) )
 			->will( $this->returnCallback(
-				function( $value ) {
+				function ( $value ) {
 					$sign = '+';
 					// Tiny parser that supports a single negative sign only
 					if ( $value[0] === '-' ) {
@@ -260,7 +260,7 @@ class PhpDateTimeParserTest extends StringValueParserTest {
 	 * @see StringValueParserTest::invalidInputProvider
 	 */
 	public function invalidInputProvider() {
-		$argLists = parent::invalidInputProvider();
+		$argLists = parent::NON_VALID_CASES;
 
 		$invalid = array(
 			'June June June',

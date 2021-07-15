@@ -3,8 +3,10 @@
 namespace ValueFormatters\Test;
 
 use DataValues\TimeValue;
+use PHPUnit\Framework\TestCase;
 use ValueFormatters\FormatterOptions;
 use ValueFormatters\TimeFormatter;
+use ValueFormatters\ValueFormatter;
 
 /**
  * @covers ValueFormatters\TimeFormatter
@@ -12,11 +14,11 @@ use ValueFormatters\TimeFormatter;
  * @group ValueFormatters
  * @group DataValueExtensions
  *
- * @license GPL-2.0+
+ * @license GPL-2.0-or-later
  * @author H. Snater < mediawiki@snater.com >
  * @author Thiemo Kreuz
  */
-class TimeFormatterTest extends ValueFormatterTestBase {
+class TimeFormatterTest extends TestCase {
 
 	/**
 	 * @see ValueFormatterTestBase::getInstance
@@ -92,6 +94,29 @@ class TimeFormatterTest extends ValueFormatterTestBase {
 		}
 
 		return $argLists;
+	}
+
+	/**
+	 * @dataProvider validProvider
+	 *
+	 * @since 0.1
+	 *
+	 * @param mixed $value
+	 * @param mixed $expected
+	 * @param FormatterOptions|null $options
+	 * @param ValueFormatter|null $formatter
+	 */
+	public function testValidFormat(
+		$value,
+		$expected,
+		FormatterOptions $options = null,
+		ValueFormatter $formatter = null
+	) {
+		if ( $formatter === null ) {
+			$formatter = $this->getInstance( $options );
+		}
+
+		$this->assertSame( $expected, $formatter->format( $value ) );
 	}
 
 }

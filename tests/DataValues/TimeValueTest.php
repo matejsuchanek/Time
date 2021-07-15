@@ -2,7 +2,9 @@
 
 namespace DataValues\Tests;
 
+use DataValues\IllegalValueException;
 use DataValues\TimeValue;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @covers DataValues\TimeValue
@@ -10,19 +12,16 @@ use DataValues\TimeValue;
  * @group DataValue
  * @group DataValueExtensions
  *
- * @license GPL-2.0+
+ * @license GPL-2.0-or-later
  * @author Jeroen De Dauw < jeroendedauw@gmail.com >
  * @author Thiemo Kreuz
  */
-class TimeValueTest extends DataValueTest {
+class TimeValueTest extends TestCase {
 
-	/**
-	 * @see DataValueTest::getClass
-	 *
-	 * @return string
-	 */
-	public function getClass() {
-		return TimeValue::class;
+	public function instanceProvider() {
+		foreach ( $this->validConstructorArgumentsProvider() as $key => $args ) {
+			yield $key => [ new TimeValue( ...$args ), $args ];
+		}
 	}
 
 	public function validConstructorArgumentsProvider() {
@@ -225,6 +224,14 @@ class TimeValueTest extends DataValueTest {
 				'http://nyan.cat/original.php'
 			),
 		);
+	}
+
+	/**
+	 * @dataProvider invalidConstructorArgumentsProvider
+	 */
+	public function testConstructorInvalid( $timestamp, $timezone, $before, $after, $precision, $calendarModel ) {
+		$this->expectException( IllegalValueException::class );
+		new TimeValue( $timestamp, $timezone, $before, $after, $precision, $calendarModel );
 	}
 
 	/**

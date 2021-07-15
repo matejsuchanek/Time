@@ -4,6 +4,7 @@ namespace ValueParsers\Test;
 
 use DataValues\TimeValue;
 use ValueParsers\EraParser;
+use ValueParsers\ParseException;
 use ValueParsers\ParserOptions;
 use ValueParsers\YearTimeParser;
 
@@ -15,11 +16,11 @@ use ValueParsers\YearTimeParser;
  * @group TimeParsers
  * @group ValueParsers
  *
- * @license GPL-2.0+
+ * @license GPL-2.0-or-later
  * @author Addshore
  * @author Thiemo Kreuz
  */
-class YearTimeParserTest extends StringValueParserTest {
+class YearTimeParserTest extends ValueParserTestCase {
 
 	/**
 	 * @see ValueParserTestBase::getInstance
@@ -41,7 +42,7 @@ class YearTimeParserTest extends StringValueParserTest {
 			->method( 'parse' )
 			->with( $this->isType( 'string' ) )
 			->will( $this->returnCallback(
-				function( $value ) {
+				function ( $value ) {
 					$sign = '+';
 					// Tiny parser that supports a single negative sign only
 					if ( $value[0] === '-' ) {
@@ -123,7 +124,7 @@ class YearTimeParserTest extends StringValueParserTest {
 	 * @see StringValueParserTest::invalidInputProvider
 	 */
 	public function invalidInputProvider() {
-		$argLists = parent::invalidInputProvider();
+		$argLists = parent::NON_VALID_CASES;
 
 		$invalid = array(
 			// These are just wrong
@@ -161,12 +162,9 @@ class YearTimeParserTest extends StringValueParserTest {
 		return $argLists;
 	}
 
-	/**
-	 * @expectedException \ValueParsers\ParseException
-	 * @expectedExceptionMessage Failed to parse year
-	 */
 	public function testParseExceptionMessage() {
 		$parser = $this->getInstance();
+		$this->expectException( ParseException::class );
 		$parser->parse( 'ju5t 1nval1d' );
 	}
 

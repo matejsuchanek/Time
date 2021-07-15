@@ -13,11 +13,11 @@ use ValueParsers\ParserOptions;
  * @group DataValue
  * @group DataValueExtensions
  *
- * @license GPL-2.0+
+ * @license GPL-2.0-or-later
  * @author Addshore
  * @author Thiemo Kreuz
  */
-class IsoTimestampParserTest extends ValueParserTestBase {
+class IsoTimestampParserTest extends ValueParserTestCase {
 
 	/**
 	 * @see ValueParserTestBase::getInstance
@@ -491,7 +491,7 @@ class IsoTimestampParserTest extends ValueParserTestBase {
 	 */
 	public function testInvalidOptions( array $options ) {
 		$parser = new IsoTimestampParser( null, new ParserOptions( $options ) );
-		$this->setExpectedException( ParseException::class );
+		$this->expectException( ParseException::class );
 		$parser->parse( '2016-01-31' );
 	}
 
